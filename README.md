@@ -21,4 +21,16 @@ wifi.scan-rand-mac-address=0
 
 [connection]
 autoconnect-retries=0
+```
 
+### 2)Disable Wi-Fi power saving
+Wi-Fi power saving can cause connection instability on some hardware and drivers, 
+especially with enterprise networks like Eduroam.
+
+File:
+`/etc/NetworkManager/conf.d/00-wifi-powersave.conf`
+
+```ini
+[connection]
+wifi.powersave=2
+```
