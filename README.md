@@ -15,8 +15,7 @@ In my case, the main problems were:
 
 I made a single Wi-Fi config file with these settings:
 
-```bash
-```
+
 ```
 [device]
 wifi.scan-rand-mac-address=no
@@ -25,4 +24,4 @@ wifi.scan-rand-mac-address=no
 wifi.powersave=2
 autoconnect-retries=5
 ```
-```
+
