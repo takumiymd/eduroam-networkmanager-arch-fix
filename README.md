@@ -1,36 +1,28 @@
 # Arch Linux Eduroam Wi-Fi Stability Fix (NetworkManager)
 
-This repo documents a small NetworkManager configuration change that fixed repeated
-disconnect/reconnect loops on **Eduroam** (802.1X) on **Arch Linux** in my setup.
+This repo documents a small NetworkManager configuration change that improved Wi-Fi stability on Arch Linux in my setup, especially for Eduroam and resume-from-suspend issues.
 
-## Symptoms
-- Random Eduroam disconnects
-- Continuous connect/disconnect loop
-- Connection works briefly, then drops
+## What this fixes
+
+In my case, the main problems were:
+
+- random Wi-Fi disconnects
+- unstable reconnect behavior after suspend / opening the laptop lid
+- NetworkManager not recovering cleanly after a drop
+- general instability on Eduroam with NetworkManager defaults
 
 ## What helped in my case
-### 1) Disable scan-time MAC randomization
-Some Eduroam deployments are sensitive to MAC randomization and may become unstable.
 
-File:
-`/etc/NetworkManager/conf.d/disable-wifi-sleep.conf`
+I made a single Wi-Fi config file with these settings:
 
-```ini
-[device]
-wifi.scan-rand-mac-address=0
-
-[connection]
-autoconnect-retries=0
+```bash
 ```
+```
+[device]
+wifi.scan-rand-mac-address=no
 
-### 2)Disable Wi-Fi power saving
-Wi-Fi power saving can cause connection instability on some hardware and drivers, 
-especially with enterprise networks like Eduroam.
-
-File:
-`/etc/NetworkManager/conf.d/00-wifi-powersave.conf`
-
-```ini
 [connection]
 wifi.powersave=2
+autoconnect-retries=5
+```
 ```
